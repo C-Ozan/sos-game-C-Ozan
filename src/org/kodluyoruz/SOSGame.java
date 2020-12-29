@@ -81,7 +81,6 @@ public class SOSGame {
             } else {
 
 
-
                 System.out.println(player2.getNickName() + " Make your move");
 
                 row = ((int) (Math.random() * 100)) % gameBoard.length;
@@ -670,10 +669,8 @@ public class SOSGame {
             }
 
 
-            System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
-
         }
-
+        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
     }
 }
 

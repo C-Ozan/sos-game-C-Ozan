@@ -16,6 +16,8 @@ public class Main {
             sizes = input.nextInt();
         }
 
+        System.out.println();
+
         SOSGame sosGame = new SOSGame(sizes);
         sosGame.FillGameBoard(sosGame);
 

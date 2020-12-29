@@ -41,30 +41,24 @@ public class SOSGame {
 
     public void playGame(Player player1, PlayerComputer player2, SOSGame sosGame) {
 
-        int headsOrTails = 0; //(int) (Math.random() * 100) % 2;
+        int headsOrTails = (int) (Math.random() * 100) % 2;
+        String[] character = {"O", "S"};
         int row = 0;
         int column = 0;
-
-        if (headsOrTails == 0) {
-            System.out.println("heads or tails Winner:" + player1.getNickName());
-            System.out.println(player1.getNickName() + " Make your move,Enter row and column number and character");
-
-        } else {
-            System.out.println("heads or tails Winner:" + player2.getNickName());
-            System.out.println(player2.getNickName() + " Make your move");
-        }
+        boolean check;
 
         for (int i = 0; i < (int) Math.pow(sosGame.gameBoard.length, 2); i++) {
 
-
             if (headsOrTails == 0) {
+
+                System.out.println(player1.getNickName() + " Make your move,Enter row and column number and character");
                 System.out.print("Row Number:");
                 row = input.nextInt();
                 System.out.print("Column Number:");
                 column = input.nextInt();
                 System.out.print("Character:");
                 String gameCharacter = input.next();
-                boolean check = checkIt(row, column, gameCharacter, sosGame.gameBoard);
+                check = checkIt(row, column, gameCharacter, sosGame.gameBoard);
 
                 while (!(check)) {
 
@@ -81,16 +75,28 @@ public class SOSGame {
                 }
 
 
-                Score(row, column, player1, gameBoard);
+                Score(row, column, player2, player1, gameBoard, headsOrTails);
 
 
             } else {
 
-                //Bilgisayara ait random row ve cols değerler buraya gelecek ve score hesaplanacak
 
-                Score(row, column, player2, sosGame.gameBoard);
+
+                System.out.println(player2.getNickName() + " Make your move");
+
+                row = ((int) (Math.random() * 100)) % gameBoard.length;
+                column = ((int) (Math.random() * 100)) % gameBoard.length;
+                String gameCharacter2 = character[(int) (Math.random() * 100) % 2];
+
+                check = checkIt(row, column, gameCharacter2, sosGame.gameBoard);
+                Score(row, column, player2, player1, sosGame.gameBoard, headsOrTails);
 
             }
+
+            if (headsOrTails == 0) {
+                headsOrTails = 1;
+            } else if (headsOrTails == 1)
+                headsOrTails = 0;
 
         }
 
@@ -127,25 +133,46 @@ public class SOSGame {
 
     }
 
-    public void Score(int row, int column, Player player1, String[][] gameBoard) {
+    public void Score(int row, int column, PlayerComputer player2, Player player1, String[][] gameBoard, int headsOrTails) {
 
 
-        float mid = gameBoard.length / 2;
+        float mid = (gameBoard.length + 1) / 2;
 
         if (row < mid && column < mid) {
 
             if (gameBoard[row + 1][column].equals("O") && gameBoard[row + 2][column].equals("S")) {
-                player1.setScore(1);
-                System.out.println(player1.getScore());
-                return;
+
+                if (headsOrTails == 0) {
+                    player1.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                } else {
+                    player2.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                }
+
+
             } else if (gameBoard[row + 1][column + 1].equals("O") && gameBoard[row + 2][column + 2].equals("S")) {
-                player1.setScore(1);
-                System.out.println(player1.getScore());
-                return;
+                if (headsOrTails == 0) {
+                    player1.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                } else {
+                    player2.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                }
             } else if (gameBoard[row][column + 1].equals("O") && gameBoard[row][column + 2].equals("S")) {
-                player1.setScore(1);
-                System.out.println(player1.getScore());
-                return;
+                if (headsOrTails == 0) {
+                    player1.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                } else {
+                    player2.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                }
             }
 
 
@@ -154,17 +181,35 @@ public class SOSGame {
         if (row < mid && column > mid) {
 
             if (gameBoard[row + 1][column].equals("O") && gameBoard[row + 2][column].equals("S")) {
-                player1.setScore(1);
-                System.out.println(player1.getScore());
-                return;
+                if (headsOrTails == 0) {
+                    player1.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                } else {
+                    player2.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                }
             } else if (gameBoard[row + 1][column - 1].equals("O") && gameBoard[row + 2][column - 2].equals("S")) {
-                player1.setScore(1);
-                System.out.println(player1.getScore());
-                return;
+                if (headsOrTails == 0) {
+                    player1.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                } else {
+                    player2.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                }
             } else if (gameBoard[row][column - 1].equals("O") && gameBoard[row][column - 2].equals("S")) {
-                player1.setScore(1);
-                System.out.println(player1.getScore());
-                return;
+                if (headsOrTails == 0) {
+                    player1.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                } else {
+                    player2.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                }
             }
 
 
@@ -173,17 +218,35 @@ public class SOSGame {
         if (row > mid && column < mid) {
 
             if (gameBoard[row - 1][column].equals("O") && gameBoard[row - 2][column].equals("S")) {
-                player1.setScore(1);
-                System.out.println(player1.getScore());
-                return;
+                if (headsOrTails == 0) {
+                    player1.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                } else {
+                    player2.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                }
             } else if (gameBoard[row - 1][column + 1].equals("O") && gameBoard[row - 2][column + 2].equals("S")) {
-                player1.setScore(1);
-                System.out.println(player1.getScore());
-                return;
+                if (headsOrTails == 0) {
+                    player1.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                } else {
+                    player2.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                }
             } else if (gameBoard[row][column + 1].equals("O") && gameBoard[row][column + 2].equals("S")) {
-                player1.setScore(1);
-                System.out.println(player1.getScore());
-                return;
+                if (headsOrTails == 0) {
+                    player1.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                } else {
+                    player2.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                }
             }
         }
 
@@ -191,17 +254,35 @@ public class SOSGame {
         if (row > mid && column > mid) {
 
             if (gameBoard[row - 1][column].equals("O") && gameBoard[row - 2][column].equals("S")) {
-                player1.setScore(1);
-                System.out.println(player1.getScore());
-                return;
+                if (headsOrTails == 0) {
+                    player1.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                } else {
+                    player2.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                }
             } else if (gameBoard[row - 1][column - 1].equals("O") && gameBoard[row - 2][column - 2].equals("S")) {
-                player1.setScore(1);
-                System.out.println(player1.getScore());
-                return;
+                if (headsOrTails == 0) {
+                    player1.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                } else {
+                    player2.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                }
             } else if (gameBoard[row][column - 1].equals("O") && gameBoard[row][column - 2].equals("S")) {
-                player1.setScore(1);
-                System.out.println(player1.getScore());
-                return;
+                if (headsOrTails == 0) {
+                    player1.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                } else {
+                    player2.setScore(1);
+                    System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                    return;
+                }
             }
 
 
@@ -212,31 +293,67 @@ public class SOSGame {
 
             if (gameBoard.length - row > 2) {
                 if (gameBoard[row - 1][column].equals("O") && gameBoard[row - 2][column].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row - 1][column + 1].equals("O") && gameBoard[row - 2][column + 1].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row][column + 1].equals("O") && gameBoard[row][column + 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row + 1][column + 1].equals("O") && gameBoard[row + 2][column + 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row + 1][column].equals("O") && gameBoard[row + 2][column].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 }
             } else {
                 if (gameBoard[row][column + 1].equals("O") && gameBoard[row][column + 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 }
 
             }
@@ -248,31 +365,67 @@ public class SOSGame {
 
             if (gameBoard.length - column > 2) {
                 if (gameBoard[row][column - 1].equals("O") && gameBoard[row][column - 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row - 1][column - 1].equals("O") && gameBoard[row - 2][column - 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row - 1][column].equals("O") && gameBoard[row - 2][column].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row - 1][column + 1].equals("O") && gameBoard[row - 2][column + 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row][column + 1].equals("O") && gameBoard[row][column + 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 }
             } else {
                 if (gameBoard[row - 1][column].equals("O") && gameBoard[row - 2][column].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 }
 
             }
@@ -286,31 +439,67 @@ public class SOSGame {
 
             if (gameBoard.length - row > 2) {
                 if (gameBoard[row - 1][column].equals("O") && gameBoard[row - 2][column].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row - 1][column - 1].equals("O") && gameBoard[row - 2][column - 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row][column - 1].equals("O") && gameBoard[row][column - 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row + 1][column - 1].equals("O") && gameBoard[row + 2][column - 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row + 1][column].equals("O") && gameBoard[row + 2][column].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 }
             } else {
                 if (gameBoard[row][column - 1].equals("O") && gameBoard[row][column - 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 }
 
             }
@@ -323,31 +512,67 @@ public class SOSGame {
 
             if (gameBoard.length - column > 2) {
                 if (gameBoard[row][column - 1].equals("O") && gameBoard[row][column - 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row + 1][column - 1].equals("O") && gameBoard[row + 2][column - 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row + 1][column].equals("O") && gameBoard[row + 2][column].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row + 1][column + 1].equals("O") && gameBoard[row + 2][column + 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 } else if (gameBoard[row][column + 1].equals("O") && gameBoard[row][column + 2].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 }
             } else {
                 if (gameBoard[row + 1][column].equals("O") && gameBoard[row + 2][column].equals("S")) {
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 }
 
             }
@@ -359,45 +584,93 @@ public class SOSGame {
 
             if (gameBoard.length - column > 2) {
 
-                if(gameBoard[row][column - 1].equals("O") && gameBoard[row][column - 2].equals("S")){
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
-                }else if(gameBoard[row - 1][column - 1].equals("O") && gameBoard[row - 2][column - 2].equals("S")){
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
-                }else if(gameBoard[row - 1][column ].equals("O") && gameBoard[row - 2][column].equals("S")){
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
-                }else if(gameBoard[row - 1][column + 1].equals("O") && gameBoard[row - 2][column + 2].equals("S")){
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
-                }else if(gameBoard[row ][column + 1].equals("O") && gameBoard[row ][column + 2].equals("S")){
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
-                }else if(gameBoard[row + 1][column + 1].equals("O") && gameBoard[row + 2][column + 2].equals("S")){
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
-                }else if(gameBoard[row - 1][column ].equals("O") && gameBoard[row - 2][column].equals("S")){
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
-                }else if(gameBoard[row + 1][column - 1].equals("O") && gameBoard[row + 2][column - 2].equals("S")){
-                    player1.setScore(1);
-                    System.out.println(player1.getScore());
-                    return;
+                if (gameBoard[row][column - 1].equals("O") && gameBoard[row][column - 2].equals("S")) {
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
+                } else if (gameBoard[row - 1][column - 1].equals("O") && gameBoard[row - 2][column - 2].equals("S")) {
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
+                } else if (gameBoard[row - 1][column].equals("O") && gameBoard[row - 2][column].equals("S")) {
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
+                } else if (gameBoard[row - 1][column + 1].equals("O") && gameBoard[row - 2][column + 2].equals("S")) {
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
+                } else if (gameBoard[row][column + 1].equals("O") && gameBoard[row][column + 2].equals("S")) {
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
+                } else if (gameBoard[row + 1][column + 1].equals("O") && gameBoard[row + 2][column + 2].equals("S")) {
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
+                } else if (gameBoard[row - 1][column].equals("O") && gameBoard[row - 2][column].equals("S")) {
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
+                } else if (gameBoard[row + 1][column - 1].equals("O") && gameBoard[row + 2][column - 2].equals("S")) {
+                    if (headsOrTails == 0) {
+                        player1.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    } else {
+                        player2.setScore(1);
+                        System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
+                        return;
+                    }
                 }
 
 
             }
 
 
-            System.out.println("Player1:" + player1.getScore());
+            System.out.println(player1.getNickName() + "Score:" + player1.getScore() + "--" + player2.getNickName() + "Score:" + player1.getScore());
 
         }
 
